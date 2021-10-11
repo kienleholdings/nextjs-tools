@@ -1,0 +1,23 @@
+{
+  "name": "Node.js",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": { "VARIANT": "14" }
+  },
+  "containerEnv": {
+    "NPM_TOKEN": "FAKE_TOKEN"
+  },
+  "forwardPorts": [3000],
+  "settings": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "eslint.workingDirectories": [
+      {
+        "pattern": "packages/*"
+      }
+    ]
+  },
+  "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"],
+  "postCreateCommand": "yarn install",
+  "remoteUser": "node"
+}
