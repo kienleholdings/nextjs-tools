@@ -3,9 +3,12 @@
   "include": ["./src/**/*.ts"],
   "compilerOptions": {
     "baseUrl": "./src",
+    "jsx": "react",
     "lib": ["ESNext", "DOM"],
     "outDir": "./lib",
     "rootDir": "./src",
+    // Next's typings suck so I have to include this otherwise our build won't work
+    "skipLibCheck": true,
     "sourceRoot": "./src",
     "target": "ES2019",
     "types": []
