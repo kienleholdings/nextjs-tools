@@ -41,7 +41,7 @@ const createHandler =
 
     if (
       !req.method ||
-      !Object.values(SUPPORTED_METHODS).includes(lowerCaseMethod) ||
+      !Object.values(SUPPORTED_HTTP_METHODS).includes(lowerCaseMethod) ||
       !methodsWithHandlers[lowerCaseMethod]
     ) {
       apiResponse.methodNotAllowed(res);
