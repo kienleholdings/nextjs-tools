@@ -1,17 +1,10 @@
 import type { NextApiResponse, NextApiRequest } from 'next';
 
 import apiResponse from './apiResponse';
+import { SUPPORTED_HTTP_METHODS } from './constants';
 
 // eslint-disable-next-line no-unused-vars
 type HandlerFunc = (req: NextApiRequest, res: NextApiResponse) => Promise<void>;
-
-const SUPPORTED_METHODS = {
-  DELETE: 'delete',
-  GET: 'get',
-  PATCH: 'patch',
-  POST: 'post',
-  PUT: 'put',
-};
 
 interface SupportedHandlers {
   delete?: HandlerFunc;
@@ -26,35 +19,35 @@ const createHandler =
   ({ delete: deleteFunc, get, patch, post, put }: SupportedHandlers): HandlerFunc =>
   async (req, res) => {
     switch (req.method?.toLowerCase()) {
-      case SUPPORTED_METHODS.DELETE:
+      case SUPPORTED_HTTP_METHODS.DELETE:
         if (deleteFunc) {
           await deleteFunc(req, res);
           break;
         }
         apiResponse.methodNotAllowed(res);
         break;
-      case SUPPORTED_METHODS.GET:
+      case SUPPORTED_HTTP_METHODS.GET:
         if (get) {
           await get(req, res);
           break;
         }
         apiResponse.methodNotAllowed(res);
         break;
-      case SUPPORTED_METHODS.PATCH:
+      case SUPPORTED_HTTP_METHODS.PATCH:
         if (patch) {
           await patch(req, res);
           break;
         }
         apiResponse.methodNotAllowed(res);
         break;
-      case SUPPORTED_METHODS.POST:
+      case SUPPORTED_HTTP_METHODS.POST:
         if (post) {
           await post(req, res);
           break;
         }
         apiResponse.methodNotAllowed(res);
         break;
-      case SUPPORTED_METHODS.PUT:
+      case SUPPORTED_HTTP_METHODS.PUT:
         if (put) {
           await put(req, res);
           break;

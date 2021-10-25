@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/kienleholdings/nextjs-tools/tree/master/packages/api-utils#readme",
   "devDependencies": {
+    "@babel/core": "^7.0.0-0",
     "@kienleholdings/base-tsconfig": "^0.1.7",
     "@kienleholdings/eslint-config-base": "^0.1.8",
     "@kienleholdings/markdownlint-config": "^0.1.0",
@@ -42,5 +43,8 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "typescript": "^4.4.2"
+  },
+  "dependencies": {
+    "next-api-middleware": "^1.0.1"
   }
 }
