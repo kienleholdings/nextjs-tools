@@ -35,6 +35,8 @@ const apiResponse = {
     errorResponse(res, 401, message),
   unprocessableEntity: (res: NextApiResponse, message = 'Unprocessable Entity'): void =>
     errorResponse(res, 422, message),
+  unsupportedMediaType: (res: NextApiResponse, message = 'Unsupported Media Type'): void =>
+    errorResponse(res, 415, message),
 };
 
 export default apiResponse;

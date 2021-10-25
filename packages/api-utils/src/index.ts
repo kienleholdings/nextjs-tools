@@ -1,6 +1,12 @@
+import { label } from 'next-api-middleware';
+
 import apiResponse from './apiResponse';
+import bodyParserMiddleware from './bodyParserMiddleware';
 import createHandler from './createHandler';
 
-// Disabling this for now as we'll be adding more shortly
-// eslint-disable-next-line import/prefer-default-export
-export { apiResponse, createHandler };
+const withMiddleware = label({ bodyParser: bodyParserMiddleware }, ['bodyParser']);
+const individualMiddleware = {
+  bodyParserMiddleware,
+};
+
+export { apiResponse, individualMiddleware, createHandler, withMiddleware };

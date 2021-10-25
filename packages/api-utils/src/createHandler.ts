@@ -1,17 +1,10 @@
 import type { NextApiResponse, NextApiRequest } from 'next';
 
 import apiResponse from './apiResponse';
+import { SUPPORTED_HTTP_METHODS } from './constants';
 
 // eslint-disable-next-line no-unused-vars
 type HandlerFunc = (req: NextApiRequest, res: NextApiResponse) => Promise<void>;
-
-const SUPPORTED_METHODS = {
-  DELETE: 'delete',
-  GET: 'get',
-  PATCH: 'patch',
-  POST: 'post',
-  PUT: 'put',
-};
 
 interface SupportedHandlers {
   delete?: HandlerFunc;
@@ -48,7 +41,7 @@ const createHandler =
 
     if (
       !req.method ||
-      !Object.values(SUPPORTED_METHODS).includes(lowerCaseMethod) ||
+      !Object.values(SUPPORTED_HTTP_METHODS).includes(lowerCaseMethod) ||
       !methodsWithHandlers[lowerCaseMethod]
     ) {
       apiResponse.methodNotAllowed(res);
