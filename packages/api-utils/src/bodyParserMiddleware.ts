@@ -2,17 +2,7 @@ import type { NextApiRequest } from 'next';
 import { NextMiddleware } from 'next-api-middleware';
 
 import apiResponse from './apiResponse';
-import {
-  DEFAULT_CONTENT_TYPES,
-  SUPPORTED_CONTENT_TYPES,
-  SUPPORTED_HTTP_METHODS,
-} from './constants';
-
-const methodsWithBodies = [
-  SUPPORTED_HTTP_METHODS.PATCH,
-  SUPPORTED_HTTP_METHODS.POST,
-  SUPPORTED_HTTP_METHODS.PUT,
-];
+import { DEFAULT_CONTENT_TYPES, SUPPORTED_CONTENT_TYPES, METHODS_WITH_BODIES } from './constants';
 
 const MALFORMATTED_JSON_ERROR = 'JSON body is malformatted';
 
@@ -40,7 +30,7 @@ const bodyParserMiddleware =
   async (req, res, next) => {
     // If content-type is passed in as an array then this will fail regardless, I'm comfortable casting this
     const contentType = (req.headers['content-type'] || req.headers['Content-Type']) as string;
-    if (methodsWithBodies.includes(req.method?.toLowerCase() ?? '')) {
+    if (METHODS_WITH_BODIES.includes(req.method?.toLowerCase() ?? '')) {
       if (!allowedContentTypes.includes(contentType)) {
         apiResponse.unsupportedMediaType(
           res,
