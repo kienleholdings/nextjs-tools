@@ -2,7 +2,11 @@ import type { NextApiRequest } from 'next';
 import { NextMiddleware } from 'next-api-middleware';
 
 import apiResponse from './apiResponse';
-import { SUPPORTED_CONTENT_TYPES, SUPPORTED_HTTP_METHODS } from './constants';
+import {
+  DEFAULT_CONTENT_TYPES,
+  SUPPORTED_CONTENT_TYPES,
+  SUPPORTED_HTTP_METHODS,
+} from './constants';
 
 const methodsWithBodies = [
   SUPPORTED_HTTP_METHODS.PATCH,
@@ -31,13 +35,27 @@ const handleJsonBody = (body: NextApiRequest['body']): ParsedBody => {
   throw new Error(MALFORMATTED_JSON_ERROR);
 };
 
-const bodyParserMiddleware: NextMiddleware = async (req, res, next) => {
-  if (methodsWithBodies.includes(req.method?.toLowerCase() ?? '')) {
-    const contentType = req.headers['content-type'] || req.headers['Content-Type'];
-    switch (contentType) {
-      // Yeah these are the same function, however putting this switch in here allows us to keep our future options open
-      case 'application/json':
-      case 'application/x-www-form-urlencoded':
+const bodyParserMiddleware =
+  (allowedContentTypes = DEFAULT_CONTENT_TYPES): NextMiddleware =>
+  async (req, res, next) => {
+    // If content-type is passed in as an array then this will fail regardless, I'm comfortable casting this
+    const contentType = (req.headers['content-type'] || req.headers['Content-Type']) as string;
+    if (methodsWithBodies.includes(req.method?.toLowerCase() ?? '')) {
+      if (!allowedContentTypes.includes(contentType)) {
+        apiResponse.unsupportedMediaType(
+          res,
+          `content-type ${JSON.stringify(
+            contentType
+          )} is not supported. The following values are allowed: ${allowedContentTypes.join(', ')}`
+        );
+        return;
+      }
+      if (
+        [
+          SUPPORTED_CONTENT_TYPES.APPLICATION_JSON,
+          SUPPORTED_CONTENT_TYPES.APPLICATION_FORM_URLENCODED,
+        ].includes(contentType)
+      ) {
         try {
           const body = handleJsonBody(req.body);
           req.body = body;
@@ -45,20 +63,9 @@ const bodyParserMiddleware: NextMiddleware = async (req, res, next) => {
         } catch (err) {
           apiResponse.badRequest(res);
         }
-        break;
-      default:
-        apiResponse.unsupportedMediaType(
-          res,
-          `content-type ${JSON.stringify(
-            contentType
-          )} is not supported. The following values are allowed: ${SUPPORTED_CONTENT_TYPES.join(
-            ', '
-          )}`
-        );
+      }
     }
-    return;
-  }
-  await next();
-};
+    await next();
+  };
 
 export default bodyParserMiddleware;

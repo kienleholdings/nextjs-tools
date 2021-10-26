@@ -34,6 +34,7 @@
     "@kienleholdings/eslint-config-base": "^0.1.8",
     "@kienleholdings/markdownlint-config": "^0.1.0",
     "@kienleholdings/prettier-config": "^0.1.3",
+    "@types/cors": "^2.8.12",
     "@types/react": "^17.0.27",
     "@types/react-dom": "^17.0.9",
     "eslint": "^7.32.0",
@@ -45,6 +46,8 @@
     "typescript": "^4.4.2"
   },
   "dependencies": {
-    "next-api-middleware": "^1.0.1"
+    "cors": "^2.8.5",
+    "next-api-middleware": "^1.0.1",
+    "nextjs-cors": "^2.0.0"
   }
 }
