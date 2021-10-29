@@ -114,8 +114,7 @@ export default withMiddleware({
 ### Generating OpenAPI Specifications
 
 Any good API needs good documentation, but maintaining one giant OpenAPI specification can be a
-Any good API needs good documentation, but maintaining one giant OpenAPI specification can be a real
-nightmare for backend developers, especially when mege conflicts are involved. Luckily, this package
+nightmare for backend developers, especially when mege conflicts are involved. Luckily, the package
 contains an easy utility that turns json files that live alongside your API endpoints into OpenAPI
 (or Swagger) specifications! Here's how to do it:
 
@@ -126,7 +125,7 @@ contains an easy utility that turns json files that live alongside your API endp
 1. In your newly-created file, populate it with OpenAPI definitions for each exposed method
 1. Once you've documented all of your API endpoints, run `yarn run generate-openapi-spec`
 
-Need your files named something different? Need to pull json definitions from a different directory?
+Need your files named something different? Need to pull definitions from a different directory?
 Run `generate-openapi-slec --help` for full command info
 
 Not sure how to write OpenAPI definitions? The [Swagger Editor](https://editor.swagger.io/) and
