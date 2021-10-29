@@ -1,0 +1,38 @@
+{
+    "name": "@kienleholdings/nextjs-tools",
+    "version": "2.0.0",
+    "description": "A collection of packages designed to make building APIs with Next.js easier",
+    "prettier": "@kienleholdings/prettier-config",
+    "private": true,
+    "scripts": {
+      "build": "lerna exec --parallel yarn build",
+      "lint": "markdownlint-cli2 \"./*.md\" && lerna exec --parallel -- yarn lint",
+      "test": "lerna exec --parallel -- yarn test",
+      "publish-lerna": "lerna publish from-package --yes --no-verify-access"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/kienleholdings/nextjs-tools.git"
+    },
+    "keywords": [
+      "kienle holdings",
+      "NextJs"
+    ],
+    "author": "Kienle Holdings LLC <hello@kienle.tech> (https://www.kienle.dev)",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/kienleholdings/nextjs-tools/issues"
+    },
+    "homepage": "https://github.com/kienleholdings/nextjs-tools#readme",
+    "workspaces": {
+      "packages": ["packages/*"]
+    },
+    "devDependencies": {
+      "@kienleholdings/markdownlint-config": "^0.1.0",
+      "@kienleholdings/prettier-config": "^0.1.3",
+      "lerna": "^4.0.0",
+      "markdownlint-cli2": "^0.2.0",
+      "prettier": "^2.3.2"
+    }
+  }
+  
