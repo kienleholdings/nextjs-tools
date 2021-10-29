@@ -1,4 +1,7 @@
 {
+  "bin": {
+    "generate-openapi-spec": "./generateOpenApi.js"
+  },
   "name": "@kienleholdings/nextjs-api-utils",
   "version": "0.1.0",
   "description": "Tooling to build better, more secure APIs with Next.js",
@@ -47,8 +50,10 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "glob": "^7.2.0",
     "next-api-middleware": "^1.0.1",
     "nextjs-cors": "^2.0.0",
+    "yargs": "^17.2.1",
     "yup": "^0.32.11"
   },
   "peerDependencies": {
