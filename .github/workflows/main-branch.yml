@@ -1,0 +1,26 @@
+name: Main Branch
+env:
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  build-and-test:
+    name: Build, Test, and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Setup Node.js 14.x (LTS)
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Install Dependencies
+        run: yarn install
+      - name: Build
+        run: yarn build
+      - name: Lint
+        run: yarn lint
+      - name: Publish Changed Packages to NPM
+        run: yarn publish-lerna
